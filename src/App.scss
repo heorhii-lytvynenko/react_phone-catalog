@@ -1,1 +1,159 @@
-// not empty
+@import "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@500;700;800&display=swap";
+
+:root {
+  --font-sans: "Manrope", "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Manrope", "Inter", "Segoe UI", sans-serif;
+  --accent-light: #b8aaff;
+  --accent-dark: #5c3dcc;
+  --accent: #905BFF;
+  --secondary: #75767f;
+  --icons: #3a3d58;
+  --elements: #3b3e4a;
+  --hover: #323542;
+  --disabled: #0f1121;
+  --bg: #161827;
+  --white: #f1f2f9;
+  --green: #27ae60;
+  --red: #eb5757;
+  --text: #f1f2f9;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --accent-light: #6548ff;
+    --accent-dark: #2e0f99;
+    --accent: #4219d0;
+    --secondary: #89939a;
+    --icons: #b4bdc3;
+    --elements: #e2e6e9;
+    --hover: #fafbfc;
+    --bg: #fafbfc;
+    --disabled: #fff;
+    --white: #fff;
+    --green: #27ae60;
+    --red: #eb5757;
+    --text: #333;
+  }
+}
+
+@function color($name) {
+  @return var(--#{$name});
+}
+
+body {
+  margin: 0;
+  background-color: color(disabled);
+  color: color(text);
+  font-family: var(--font-sans);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: inline-block;
+}
+
+button {
+  box-sizing: border-box;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+
+  cursor: pointer;
+}
+
+/*
+  Purpose:
+    These rules are slightly nested on purpose to achieve a clever menu toggle
+    behavior without any JS magic, all while respecting the hashed class (.module)
+    structure as much as possible.
+
+  Related classes/files:
+    - .response in `Header.module.scss` — handles UI changes depending on screen size
+    - .control &__button in `Header.module.scss` — styles for the buttons
+    - `Aside.module.scss` — styles for the Aside component
+
+  Notes:
+    - When resizing from small to large screens and back, the checkbox state
+      preserves its previous value — no reset
+    - Pure CSS solution: no JS involved, just smart selectors and media queries
+*/
+
+/* stylelint-disable-next-line selector-max-id */
+#menu-checkbox {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* stylelint-disable-next-line selector-max-id */
+#menu-checkbox:checked~aside[data-menu-aside] {
+  left: 0;
+
+  @include respond (tablet) {
+    display: none;
+  }
+}
+
+header label.check-box-label {
+  display: flex;
+
+  @include respond(tablet) {
+    display: none;
+  }
+}
+
+.menuIcon line {
+  stroke: $text;
+  transform-origin: center;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+
+// animations for the menu button
+/* stylelint-disable selector-max-id */
+
+#menu-checkbox:checked~header .menuIcon .line1 {
+  transform: rotate(45deg) translate(4.17%, 20.8%) scaleX(1.2);
+}
+
+#menu-checkbox:checked~header .menuIcon .line2 {
+  opacity: 0;
+  transform: rotate(90deg);
+  transition: transform 0.2s ease-in, opacity 0.1s ease-in;
+}
+
+#menu-checkbox:checked~header .menuIcon .line3 {
+  transform: rotate(-45deg) translate(4.17%, -20.8%) scaleX(1.2);
+}
+
+#menu-checkbox:checked~header .menuIcon {
+  transform: translateX(-5.4%);
+}
+
+/* stylelint-enable selector-max-id */
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

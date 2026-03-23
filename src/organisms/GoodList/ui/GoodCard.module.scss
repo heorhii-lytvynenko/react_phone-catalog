@@ -1,0 +1,49 @@
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: space(3);
+  background-color: $bg;
+  box-sizing: border-box;
+  border: calc($space-unit / 4) solid transparent;
+  padding: space(4);
+  scroll-snap-align: center;
+
+  &:hover {
+    border-color: $secondary;
+  }
+
+  &__img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    display: block;
+  }
+
+  @include respond (tablet) {
+    grid-column: span 5;
+  }
+
+  @include respond (desktop) {
+    grid-column: span 6;
+  }
+
+  &__name {
+    min-height: max-content;
+    font-size: medium;
+    font-weight: 400;
+  }
+
+  &__footer {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: space(2);
+
+    &__controls {
+      height: calc($space-unit * 10);
+      display: flex;
+      gap: space(2);
+    }
+  }
+}
