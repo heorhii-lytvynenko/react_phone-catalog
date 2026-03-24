@@ -1,5 +1,3 @@
-const { error } = require("console");
-
 module.exports = {
   env: {
     browser: true,
@@ -39,12 +37,6 @@ module.exports = {
     'prettier'
   ],
   rules: {
-    // i am ussing index.ts and @ alias
-    'import/extensions': ['error', 'ignorePackages', {
-      ts: 'never',
-      tsx: 'never',
-    }],
-
     // JS
     'semi': 'off',
     '@typescript-eslint/semi': ['error', 'always'],
@@ -100,25 +92,15 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/indent': ['error', 2],
     '@typescript-eslint/ban-types': ['error', {
-      extendDefaults: true,
-      types: {
-        '{}': false,
+        extendDefaults: true,
+        types: {
+          '{}': false,
+        },
       },
-    },
     ],
   },
   ignorePatterns: ['dist', '.eslintrc.cjs', 'vite.config.ts', 'src/vite-env.d.ts', 'cypress'],
   settings: {
-    'import/resolver': {
-      typescript: {
-        alwaysTryTypes: true,
-        project: './tsconfig.json',
-      },
-      node: {
-        extensions: ['.ts', '.tsx'],
-      },
-    },
-
     react: {
       version: 'detect',
     },
