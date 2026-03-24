@@ -1,23 +1,11 @@
-import type { FC, HTMLAttributes, ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
+
+import { FilterProps, Good } from '@/types';
 import { cn } from '@/utils/cn';
 import s from './Filter.module.scss';
-
-type FilterProps = HTMLAttributes<HTMLDivElement> & {
-  children?: ReactNode;
-};
-
-type FilterComponent = FC<FilterProps> & {
-  Sort: FC<FilterProps>;
-  Items: FC<FilterProps>;
-};
-
-const Sort: FC<FilterProps> = ({ children, className = '', ...props }) => {
-  return (
-    <div className={cn(s.sort, className)} {...props}>
-      {children}
-    </div>
-  );
-};
+import { SortProps } from './ui/Sort/types';
+import { Sort } from './ui/Sort';
+import ItemsOnPage from './ui/ItemsOnPage';
 
 const Items: FC<FilterProps> = ({ children, className = '', ...props }) => {
   return (
@@ -36,8 +24,15 @@ const Base: FC<FilterProps> = ({ children, className = '', ...props }) => {
 };
 
 export const Filter = Object.assign(Base, {
-  Sort: Sort,
-  Items: Items,
+  Sort,
+  Items,
+  ItemsOnPage,
 }) as FilterComponent;
+
+type FilterComponent = FC<FilterProps> & {
+  Sort: <T extends Good>(props: FilterProps & SortProps<T>) => ReactNode;
+  Items: FC<FilterProps>;
+  ItemsOnPage: typeof ItemsOnPage;
+};
 
 export default Filter;

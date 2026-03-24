@@ -1,21 +1,44 @@
 import { Page } from '@/atoms';
-import { Catalog as C } from '@/organisms';
+import { Catalog } from '@/organisms';
 import { usePhones } from '@/hooks';
+import { useEffect, useState } from 'react';
 
 const Phones = () => {
   const phones = usePhones();
+  const [items, setItems] = useState(phones);
+  const [page, setPage] = useState(1);
+  const [itemsOnPage, setItemsOnPage] = useState(16);
+
+  useEffect(() => {
+    setItems(phones);
+  }, [phones]);
 
   return (
     <Page>
       <Page.Breadcrumps />
-      <C title="Mobile phones">
-        <C.Count list={phones} />
-        <C.Filter>
-          <C.Filter.Items />
-          <C.Filter.Sort />
-        </C.Filter>
-        <C.List items={phones} />
-      </C>
+
+      <Catalog title="Mobile phones">
+        <Catalog.Count list={items} />
+
+        <Catalog.Filter>
+          <Catalog.Filter.Items />
+
+          <Catalog.Filter.ItemsOnPage
+            itemsOnPage={itemsOnPage}
+            setItemsOnPage={setItemsOnPage}
+          />
+
+          <Catalog.Filter.Sort items={items} setItems={setItems} />
+        </Catalog.Filter>
+
+        <Catalog.List items={items} itemsOnPage={itemsOnPage} page={page} />
+        <Catalog.Pagination
+          page={page}
+          setPage={setPage}
+          itemsOnPage={itemsOnPage}
+          items={items}
+        />
+      </Catalog>
     </Page>
   );
 };

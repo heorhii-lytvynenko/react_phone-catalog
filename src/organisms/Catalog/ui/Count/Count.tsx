@@ -1,19 +1,20 @@
 import { cn } from '@/utils/cn';
 import s from './Count.module.scss';
+import { Good } from '@/types';
 
-type Props<T> = {
-  list: readonly T[];
+type Props = {
+  list: readonly Good[];
   className?: string;
   singularLabel?: string;
   pluralLabel?: string;
 };
 
-const Count = <T,>({
+const Count = ({
   list,
   className = '',
   singularLabel = 'model',
   pluralLabel = 'models',
-}: Props<T>) => {
+}: Props) => {
   const label = list.length === 1 ? singularLabel : pluralLabel;
 
   return <p className={cn(s.count, className)}>{`${list.length} ${label}`}</p>;

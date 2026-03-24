@@ -63,6 +63,12 @@
     }
   }
 
+  @include respond (tablet) {
+    row-gap: space(2);
+
+    @include grid;
+  }
+
   @include respond(tablet) {
     grid-template-columns: calc($space-unit * 10) minmax(0, 1fr) calc($space-unit * 10);
     gap: space(2);

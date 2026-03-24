@@ -2,7 +2,6 @@ import { ItemCard } from '@/atoms';
 import type { Good } from '@/types';
 import { cn } from '@/utils/cn';
 import type { Key, ReactNode } from 'react';
-import { useMemo } from 'react';
 import s from './LongList.module.scss';
 
 type Props<T extends Good> = {
@@ -27,21 +26,11 @@ const List = <T extends Good>({
   getItemKey,
 }: Props<T>) => {
   const normalizedItemsOnPage = Math.max(1, Math.floor(itemsOnPage));
-  const totalPages = Math.max(
-    1,
-    Math.ceil(items.length / normalizedItemsOnPage),
+  const startIndex = (page - 1) * normalizedItemsOnPage;
+  const visibleItems = items.slice(
+    startIndex,
+    startIndex + normalizedItemsOnPage,
   );
-  const normalizedPage = Math.min(totalPages, Math.max(1, Math.floor(page)));
-
-  const { firstItemIndex, visibleItems } = useMemo(() => {
-    const startIndex = (normalizedPage - 1) * normalizedItemsOnPage;
-    const endIndex = startIndex + normalizedItemsOnPage;
-
-    return {
-      firstItemIndex: startIndex,
-      visibleItems: items.slice(startIndex, endIndex),
-    };
-  }, [items, normalizedItemsOnPage, normalizedPage]);
 
   if (visibleItems.length === 0) {
     return emptyState ? (
@@ -52,8 +41,11 @@ const List = <T extends Good>({
   return (
     <div className={cn(s.list, className)}>
       {visibleItems.map((item, index) => {
-        const itemIndex = firstItemIndex + index;
-        const key = getItemKey?.(item, itemIndex) ?? item.namespaceId;
+        const itemIndex = startIndex + index;
+
+        const key =
+          getItemKey?.(item, itemIndex) ?? `${item.namespaceId}-${itemIndex}`;
+
         const content = renderItem?.(item, itemIndex) ?? (
           <ItemCard item={item} discount={discount} />
         );

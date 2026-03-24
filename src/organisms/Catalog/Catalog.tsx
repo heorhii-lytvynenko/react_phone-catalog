@@ -5,6 +5,7 @@ import s from './Catalog.module.scss';
 import List from './ui/List';
 import Count from './ui/Count';
 import Filter from './ui/Filters';
+import Pagination from './ui/Pagination';
 
 type CatalogProps = Omit<ComponentProps<typeof Section>, 'children'> & {
   title: ReactNode;
@@ -15,6 +16,7 @@ type CatalogComponent = FC<CatalogProps> & {
   List: typeof List;
   Filter: typeof Filter;
   Count: typeof Count;
+  Pagination: typeof Pagination;
 };
 
 const CatalogBase: FC<CatalogProps> = ({
@@ -35,6 +37,7 @@ export const Catalog = Object.assign(CatalogBase, {
   List,
   Filter,
   Count,
+  Pagination,
 }) as CatalogComponent;
 
 export default Catalog;
