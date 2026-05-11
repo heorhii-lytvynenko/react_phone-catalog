@@ -1,12 +1,21 @@
-import { Page, Section } from '@/atoms';
+import { Page } from '@/atoms';
+import { useTablets } from '@/hooks';
+import { Catalog as C } from '@/organisms';
 
 const Tablets = () => {
+  const tablets = useTablets();
+
   return (
     <Page>
       <Page.Breadcrumps />
-      <Section>
-        <Section.Title>Tablets</Section.Title>
-      </Section>
+      <C title="Tablets">
+        <C.Count list={tablets} />
+        <C.Filter>
+          <C.Filter.Items />
+          <C.Filter.Sort />
+        </C.Filter>
+        <C.List items={tablets} />
+      </C>
     </Page>
   );
 };

@@ -1,0 +1,9 @@
+.count {
+  grid-column: 1 / -1;
+  margin: 0 0 space(3);
+  color: $secondary;
+  font-size: calc($space-unit * 3.5);
+  line-height: 1.4;
+  font-weight: 500;
+  text-transform: capitalize;
+}

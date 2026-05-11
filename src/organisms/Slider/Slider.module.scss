@@ -64,7 +64,8 @@
   }
 
   @include respond(tablet) {
-    row-gap: space(2);
+    grid-template-columns: calc($space-unit * 10) minmax(0, 1fr) calc($space-unit * 10);
+    gap: space(2);
   }
 }
 
@@ -158,7 +159,7 @@
 .button__right {
   display: none;
   grid-row: 1 / 2;
-  max-width: space(4);
+  max-width: calc($space-unit * 10);
 
   @include respond(tablet) {
     display: flex;
@@ -174,7 +175,6 @@
     max-width: none;
   }
 
-  @include on-hover(1.01);
 }
 
 .button__left {
@@ -197,6 +197,11 @@
       transform: rotate(90deg);
     }
   }
+}
+
+.button__left:not(:disabled):hover,
+.button__right:not(:disabled):hover {
+  @include animation(scale(1.01));
 }
 
 .pagination {

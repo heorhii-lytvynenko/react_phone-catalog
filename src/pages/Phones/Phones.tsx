@@ -1,5 +1,5 @@
 import { Page } from '@/atoms';
-import { Catalog } from '@/organisms';
+import { Catalog as C } from '@/organisms';
 import { usePhones } from '@/hooks';
 
 const Phones = () => {
@@ -8,9 +8,14 @@ const Phones = () => {
   return (
     <Page>
       <Page.Breadcrumps />
-      <Catalog title="Mobile phones">
-        <Catalog.List items={phones} />
-      </Catalog>
+      <C title="Mobile phones">
+        <C.Count list={phones} />
+        <C.Filter>
+          <C.Filter.Items />
+          <C.Filter.Sort />
+        </C.Filter>
+        <C.List items={phones} />
+      </C>
     </Page>
   );
 };

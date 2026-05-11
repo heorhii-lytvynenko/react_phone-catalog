@@ -1,8 +1,10 @@
+import type { ComponentProps, FC, ReactNode } from 'react';
 import { Section } from '@/atoms';
+import { cn } from '@/utils/cn';
 import s from './Catalog.module.scss';
 import List from './ui/List';
-import type { ComponentProps, FC, ReactNode } from 'react';
-import { cn } from '@/utils/cn';
+import Count from './ui/Count';
+import Filter from './ui/Filters';
 
 type CatalogProps = Omit<ComponentProps<typeof Section>, 'children'> & {
   title: ReactNode;
@@ -11,6 +13,8 @@ type CatalogProps = Omit<ComponentProps<typeof Section>, 'children'> & {
 
 type CatalogComponent = FC<CatalogProps> & {
   List: typeof List;
+  Filter: typeof Filter;
+  Count: typeof Count;
 };
 
 const CatalogBase: FC<CatalogProps> = ({
@@ -27,5 +31,10 @@ const CatalogBase: FC<CatalogProps> = ({
   );
 };
 
-export const Catalog = Object.assign(CatalogBase, { List }) as CatalogComponent;
+export const Catalog = Object.assign(CatalogBase, {
+  List,
+  Filter,
+  Count,
+}) as CatalogComponent;
+
 export default Catalog;
